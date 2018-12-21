@@ -5,7 +5,7 @@ import Vue from "vue";
 new Vue( {
     computed: {
         hasModels(): boolean {
-            return this.isLoading === false && this.models.length > 0;
+            return this.isLoading=== false && this.models.length > 0;
         },
         noModels(): boolean {
             return this.isLoading === false && this.models.length === 0;
