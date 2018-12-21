@@ -10,8 +10,8 @@
     "parcel": "parcel build lib/public/js/main.ts -d dist/public/js",
     "build": "npm-run-all clean tsc copy-assets parcel",
     "dev:start": "npm-run-all build start",
-    "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
-    "start": "ts-node ./lib/server.ts"
+    "dev": "nodemon --watch lib -e ts,ejs --exec npm run dev:start",
+    "start": "node ."
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"

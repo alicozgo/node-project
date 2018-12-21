@@ -4,6 +4,8 @@ import * as bodyParser from "body-parser";
 import { Routes } from "./routes/appRoutes";
 import mongoose from "mongoose";
 
+const PORT = 3000;
+
 class App {
     public app: express.Application;
     public routePrv: Routes = new Routes();
@@ -11,12 +13,15 @@ class App {
     public mongoConfig: mongoose.ConnectionOptions = {
         useNewUrlParser: true
     }
-
+    
     constructor() {
         this.app = express();
         this.config();
         this.routePrv.routes(this.app);
         this.mongoSetup();
+        this.app.listen(3000, () => {
+            console.log('Express server listening on port ' + PORT);
+        })
     }
 
     private config(): void { 

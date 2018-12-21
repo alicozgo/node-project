@@ -20,8 +20,7 @@ export const AssociationSchema = new Schema({
 
 export const ModelSchema = new Schema({
     name: {
-        type: String,
-        required: 'Enter a name'
+        type: String
     },
     entities: [EntitySchema], 
     associations: [AssociationSchema]

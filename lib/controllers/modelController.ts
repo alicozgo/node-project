@@ -17,12 +17,12 @@ export module ModelControllerModule {
             });   
         }
         public getAllModels (req: Request, res: Response) {
-            Model.find((err, models) => {
-                if (err) {
-                    res.send(err);
+            var query = Model.find({}).select('name');
+            query.exec(function (err, models) {
+                if (models) {
+                    res.json(models);
                 }
-                res.json(models);
-            })
+            });
         }
         public getModelById (req: Request, res: Response) {
             Model.findById(req.params.modelId, (err, model) => {
@@ -32,12 +32,22 @@ export module ModelControllerModule {
                 res.json(model);
             });
         }
+        public removeModelById (req: Request, res: Response) {
+            Model.findByIdAndDelete(req.params.modelId, (err, model) => {
+                if (err) {
+                    res.send(err);
+                }
+            });
+        }
         public modifyModel (req: Request, res: Response) {
             var query = Model.findById(req.params.modelId);
             query.then((doc) => {
                 // apply the patch from request 
                 let patchedModel = new Model(jsonpatch.apply(doc, req.body));
-                Model.replaceOne(req.params.modelId, patchedModel);
+                Model.replaceOne({_id: req.params.modelId}, patchedModel, function(err) {
+                    if (err)
+                        res.send(err);
+                });
                 res.json(patchedModel);
             });
         }
